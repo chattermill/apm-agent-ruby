@@ -25,11 +25,11 @@ module ElasticAPM
       first.merge!(second) { |_, old, _| old }
     end
 
-    def self.truncate(value)
+    def self.truncate(value, max_length: 1024)
       return unless value
-      return value if value.length <= 1024
+      return value if value.length <= max_length
 
-      format('%s…', value[0...1024])
+      value[0...(max_length - 1)] + '…'
     end
   end
 end
