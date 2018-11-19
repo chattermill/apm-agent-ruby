@@ -35,9 +35,9 @@ module ElasticAPM
         def build_exception(exception)
           {
             message: exception.message,
-            type: exception.type,
-            module: exception.module,
-            code: exception.code,
+            type: keyword_field(exception.type),
+            module: keyword_field(exception.module),
+            code: keyword_field(exception.code),
             attributes: exception.attributes,
             stacktrace: exception.stacktrace.to_a,
             handled: exception.handled
@@ -47,9 +47,9 @@ module ElasticAPM
         def build_log(log)
           {
             message: log.message,
-            level: log.level,
-            logger_name: log.logger_name,
-            param_message: log.param_message,
+            level: keyword_field(log.level),
+            logger_name: keyword_field(log.logger_name),
+            param_message: keyword_field(log.param_message),
             stacktrace: log.stacktrace.to_a
           }
         end

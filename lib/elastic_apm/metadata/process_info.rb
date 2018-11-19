@@ -14,7 +14,7 @@ module ElasticAPM
         {
           argv: ARGV,
           pid: pid,
-          title: $PROGRAM_NAME
+          title: Util.truncate($PROGRAM_NAME)
         }
       end
 

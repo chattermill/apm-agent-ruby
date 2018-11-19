@@ -24,6 +24,20 @@ module ElasticAPM
             .to raise_error(Serializers::UnrecognizedResource)
         end
       end
+
+      describe '#keyword_field' do
+        class TruncateSerializer < Serializers::Serializer
+          def serialize(obj)
+            { test: keyword_field(obj[:test]) }
+          end
+        end
+
+        it 'truncates values to 1024 chars' do
+          obj = { test: 'X' * 2000 }
+          thing = TruncateSerializer.new(Config.new).serialize(obj)
+          expect(thing[:test]).to match(/X{1023}…/)
+        end
+      end
     end
   end
 end

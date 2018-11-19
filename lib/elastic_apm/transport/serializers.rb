@@ -20,6 +20,10 @@ module ElasticAPM
         def ms(micros)
           micros.to_f / 1_000
         end
+
+        def keyword_field(value)
+          Util.truncate(value)
+        end
       end
 
       # @api private

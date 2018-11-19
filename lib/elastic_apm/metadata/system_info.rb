@@ -10,9 +10,9 @@ module ElasticAPM
 
       def build
         {
-          hostname: @config.hostname || `hostname`.chomp,
-          architecture: platform.cpu,
-          platform: platform.os
+          hostname: Util.truncate(@config.hostname || `hostname`.chomp),
+          architecture: Util.truncate(platform.cpu),
+          platform: Util.truncate(platform.os)
         }
       end
 

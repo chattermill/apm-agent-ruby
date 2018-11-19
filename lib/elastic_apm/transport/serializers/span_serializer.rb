@@ -12,10 +12,10 @@ module ElasticAPM
               id: span.id,
               transaction_id: span.transaction_id,
               parent_id: span.parent_id,
-              name: span.name,
-              type: span.type,
+              name: keyword_field(span.name),
+              type: keyword_field(span.type),
               duration: ms(span.duration),
-              context: span.context&.to_h,
+              context: build_context(span.context),
               stacktrace: span.stacktrace.to_a,
               timestamp: span.timestamp,
               trace_id: span.trace_id
@@ -23,6 +23,14 @@ module ElasticAPM
           }
         end
         # rubocop:enable Metrics/MethodLength
+
+        private
+
+        def build_context(context)
+          return unless context
+
+          context.to_h
+        end
       end
     end
   end

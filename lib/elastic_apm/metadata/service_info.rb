@@ -11,8 +11,8 @@ module ElasticAPM
       # rubocop:disable Metrics/MethodLength
       def build
         base = {
-          name: @config.service_name,
-          environment: @config.environment,
+          name: Util.truncate(@config.service_name),
+          environment: Util.truncate(@config.environment),
           agent: {
             name: 'ruby',
             version: VERSION
@@ -23,13 +23,13 @@ module ElasticAPM
             version: RUBY_VERSION
           },
           runtime: runtime,
-          version: @config.service_version || Util.git_sha
+          version: Util.truncate(@config.service_version || Util.git_sha)
         }
 
         if @config.framework_name
           base[:framework] = {
-            name: @config.framework_name,
-            version: @config.framework_version
+            name: Util.truncate(@config.framework_name),
+            version: Util.truncate(@config.framework_version)
           }
         end
 
