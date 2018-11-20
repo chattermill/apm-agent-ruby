@@ -24,6 +24,10 @@ module ElasticAPM
         def keyword_field(value)
           Util.truncate(value)
         end
+
+        def keyword_object(hash)
+          hash.each { |k, v| hash[k] = keyword_field(v) }
+        end
       end
 
       # @api private

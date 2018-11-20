@@ -4,8 +4,6 @@ module ElasticAPM
   class Context
     # @api private
     class User
-      include NaivelyHashable
-
       def initialize(config, record)
         return unless record
 
